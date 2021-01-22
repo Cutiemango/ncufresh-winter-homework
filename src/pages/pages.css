@@ -1,0 +1,9 @@
+.home {
+    font-size: 24;
+    font-family: Microsoft JhengHei;
+    text-align: center;
+}
+
+.errorMsg {
+    color: red;
+}

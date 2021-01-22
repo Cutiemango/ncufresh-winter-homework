@@ -1,0 +1,33 @@
+:root {
+    --signup: #1888ff;
+    --logout: #ce1931;
+}
+
+.btn {
+    padding: 8px 20px;
+    border-radius: 4px;
+    outline: none;
+    border: none;
+    font-size: 18px;
+    color: #fff;
+    cursor: pointer;
+    background-color: var(--signup);
+}
+
+.btn:hover {
+    padding: 6px 10px;
+    transition: all 0.3s ease-out;
+    background-color: transparent;
+    color: #fff;
+    border-radius: 4px;
+    border: 2px solid var(--signup);
+}
+
+#logout {
+    background-color: var(--logout);
+}
+
+#logout:hover {
+    background-color: transparent;
+    border: 2px solid var(--logout);
+}
