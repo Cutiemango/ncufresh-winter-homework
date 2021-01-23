@@ -2,5 +2,9 @@
 
 ## 目前完成度： 15%
 
-前端框架：React
-後端：Express.js + MongoDB
+### Frontend
+- Framework: React
+### Backend
+- Server hosting(API Endpoint): Express.js
+- Database: MongoDB
+<img src="https://i.imgur.com/c16F1SD.png">
