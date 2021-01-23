@@ -9,6 +9,7 @@ import Navbar from './components/Navbar'
 import './app.css'
 
 export const LoginStatus = React.createContext()
+export const UserContext = React.createContext()
 
 const App = () => {
     const [isLoggedIn, setLoggedIn] = useState(false)
@@ -19,23 +20,25 @@ const App = () => {
     // isAdmin: 是否為管理員
 
     const [user, setUser] = useState({
-        id: 'Cutiemango',
-        name: 'Mango',
+        id: '',
+        name: '',
         isAdmin: false
     })
 
     return (
-        <LoginStatus.Provider value={{isLoggedIn, setLoggedIn}}>
-            <Router>
-                <Navbar user={user}/>
-                <Switch>
-                    <Route path='/' exact component={Home} />
-                    <Route path='/login' exact component={LoginPage} />
-                    <Route path='/sign-up' exact component={RegisterPage} />
-                </Switch>
-            </Router>
-        </LoginStatus.Provider>
+        <UserContext.Provider value={{user, setUser}}>
+            <LoginStatus.Provider value={{isLoggedIn, setLoggedIn}}>
+                <Router>
+                    <Navbar />
+                    <Switch>
+                        <Route path='/' exact component={Home} />
+                        <Route path='/login' exact component={LoginPage} />
+                        <Route path='/sign-up' exact component={RegisterPage} />
+                    </Switch>
+                </Router>
+            </LoginStatus.Provider>
+        </UserContext.Provider>
     )
 }
 
-export default App;
+export default App

@@ -17,4 +17,4 @@ const Button = ({isLoggedIn, handleClick}) => {
     )
 }
 
-export default Button;
+export default Button

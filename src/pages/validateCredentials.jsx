@@ -1,7 +1,22 @@
-import React from 'react'
+import axios from 'axios'
 
-const ACCOUNT_REGEX = new RegExp('^[A-Za-z0-9]+$')
+const ACCOUNT_REGEX = new RegExp('^[A-Za-z0-9_]+$')
 const PASSWORD_REGEX = new RegExp('^[A-Za-z0-9@$!%*#?&]+$')
+
+const API_URL = 'http://localhost:3001'
+
+export const postData = async (apiMethod, data) => {
+    axios.defaults.withCredentials = true
+    try {
+        const response = await axios.post(API_URL + `/${apiMethod}`, data)
+        const responseData = await response.data
+        return responseData
+    }
+    catch (error) {
+        console.log(error.response.data)
+        return error.response.data
+    }
+}
 
 const validate = (data) => {
     let errors = []
@@ -17,7 +32,6 @@ const validate = (data) => {
 
     if (!PASSWORD_REGEX.test(data.password))
         errors.push('Password contains invalid characters')
-
     return errors
 }
 

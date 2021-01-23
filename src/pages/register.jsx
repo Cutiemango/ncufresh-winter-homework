@@ -1,41 +1,39 @@
-import React, { useState } from 'react';
-import axios from 'axios';
+import React, { useContext, useState } from 'react'
+import { Redirect } from 'react-router-dom'
 
-import validate from './validateCredentials'
+import validate, { postData } from './validateCredentials'
+import { LoginStatus, UserContext } from '../app'
 import RegisterForm from '../components/RegisterForm'
 
-import './pages.css';
+import './pages.css'
 
 const RegisterPage = () => {
     const [errors, setErrors] = useState([])
+    const {isLoggedIn, setLoggedIn} = useContext(LoginStatus)
+    const {setUser} = useContext(UserContext)
 
-    const handleRegister = (registerData) => {
-        console.log(registerData)
-        setErrors(validate(registerData))
-        // let url = 'https://someurl.com'
-        // let options = {
-        //     method: 'POST',
-        //     url: url,
-        //     headers: {
-        //         'Accept': 'application/json',
-        //         'Content-Type': 'application/json;charset=UTF-8'
-        //     },
-        //     data: {
-        //         account: credentials.account,
-        //         password: credentials.password
-        //     }
-        // }
-        // let response = await axios(options)
-        // let responseOK = response && response.status === 200 && response.statusText === 'OK'
-        // if (responseOK) {
-        //     let data = await response.data;
-        //     // do something with data
-        // }
+    const handleRegister = async (registerData) => {
+        let validationError = validate(registerData)
+        if (validationError.length !== 0)
+        {
+            setErrors(validationError)
+            return
+        }
+
+        let response = await postData('register', registerData)
+        if (response.status !== 'OK')
+        {
+            setErrors(response.message)
+            return
+        }
+        
+        setUser(response.user)
+        setLoggedIn(true)
     }
 
     return (
-        <RegisterForm register={handleRegister} error={errors}/>
+        isLoggedIn ? <Redirect to='/home' /> : <RegisterForm register={handleRegister} error={errors}/>
     )
 }
 
-export default RegisterPage;
+export default RegisterPage

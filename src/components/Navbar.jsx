@@ -1,21 +1,32 @@
 import React, { useState, useContext } from 'react'
 import { Link } from 'react-router-dom'
+import axios from 'axios'
 
-import { LoginStatus } from '../app'
+import { LoginStatus, UserContext } from '../app'
 import Button from './Button'
 
 import './Navbar.css'
 
-const Navbar = ({user}) =>
+const Navbar = () =>
 {
     const [isMenuActive, setMenuActive] = useState(false)
     const {isLoggedIn, setLoggedIn} = useContext(LoginStatus)
+    const {user, setUser} = useContext(UserContext)
 
     const handleClick = () => setMenuActive(!isMenuActive)
     const closeMenu = () => setMenuActive(false)
 
-    const handleLoginClick = () => setLoggedIn(!isLoggedIn)
-    const handleLogout = () => setLoggedIn(false)
+    const handleLogout = () => {
+        setLoggedIn(false)
+        setUser({
+            account: '',
+            name: '',
+            isAdmin: false
+        })
+
+        let url = 'http://localhost:3001/logout'
+        axios.get(url)
+    }
 
     return (
         <>
@@ -34,13 +45,13 @@ const Navbar = ({user}) =>
                     </li>
 
                     <li className='nav-item'>
-                        <Link to='/comments' className='nav-links' onClick={closeMenu}>
-                            Comments
+                        <Link to='/articles' className='nav-links' onClick={closeMenu}>
+                            Articles
                         </Link>
                     </li>
 
                     {!isLoggedIn && <li className='nav-item'>
-                        <Link to='/login' className='nav-links' onClick={handleLoginClick}>
+                        <Link to='/login' className='nav-links' onClick={closeMenu}>
                             Log In
                         </Link>
                     </li>}
@@ -63,4 +74,4 @@ const Navbar = ({user}) =>
     )
 }
 
-export default Navbar;
+export default Navbar

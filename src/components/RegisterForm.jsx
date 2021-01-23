@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState } from 'react'
 
 const RegisterForm = ({register, error}) => {
     const [registerData, setRegisterData] = useState({
@@ -62,11 +62,11 @@ const RegisterForm = ({register, error}) => {
             </div>
             <button onClick={handleSubmit}>Join Gura Fan Club</button>
             
-            {error.length > 0 && error.map(msg => {
-                return <h4 className='errorMsg'>{msg}</h4>
+            {error.length > 0 && error.map((msg, idx) => {
+                return <h4 className='errorMsg' key={idx}>{msg}</h4>
             })}
         </div>
     )
 }
 
-export default RegisterForm;
+export default RegisterForm

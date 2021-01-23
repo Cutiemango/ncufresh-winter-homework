@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState } from 'react'
 
 const LoginForm = ({login, error}) => {
     const [credentials, setCredentials] = useState({
@@ -8,7 +8,6 @@ const LoginForm = ({login, error}) => {
 
     const handleInput = (event) => {
         event.preventDefault()
-
         setCredentials(prev => {
             return {
                 ...prev,
@@ -50,11 +49,11 @@ const LoginForm = ({login, error}) => {
             </div>
             <button onClick={handleSubmit}>LET ME INNNN</button>
             
-            {error.length > 0 && error.map(msg => {
-                return <h4 className='errorMsg'>{msg}</h4>
+            {error.length > 0 && error.map((msg, idx) => {
+                return <h4 className='errorMsg' key={idx}>{msg}</h4>
             })}
         </div>
     )
 }
 
-export default LoginForm;
+export default LoginForm
