@@ -23,7 +23,7 @@ const RegisterPage = () => {
         let response = await postData('register', registerData)
         if (response.status !== 'OK')
         {
-            setErrors(response.message)
+            setErrors([response.message])
             return
         }
         

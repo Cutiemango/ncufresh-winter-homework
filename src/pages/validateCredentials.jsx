@@ -13,7 +13,18 @@ export const postData = async (apiMethod, data) => {
         return responseData
     }
     catch (error) {
-        console.log(error.response.data)
+        return error.response.data
+    }
+}
+
+export const getData = async (apiMethod) => {
+    axios.defaults.withCredentials = true
+    try {
+        const response = await axios.get(API_URL + `/${apiMethod}`)
+        const responseData = await response.data
+        return responseData
+    }
+    catch (error) {
         return error.response.data
     }
 }

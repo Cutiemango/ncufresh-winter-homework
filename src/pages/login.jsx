@@ -23,7 +23,7 @@ const LoginPage = () => {
         let response = await postData('login', credentials)
         if (response.status !== 'OK')
         {
-            setErrors(response.message)
+            setErrors([response.message])
             return
         }
         

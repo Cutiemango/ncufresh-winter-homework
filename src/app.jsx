@@ -1,6 +1,7 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 
+import { getData } from './pages/validateCredentials'
 import Home from './pages/home'
 import LoginPage from './pages/login'
 import RegisterPage from './pages/register'
@@ -24,6 +25,20 @@ const App = () => {
         name: '',
         isAdmin: false
     })
+
+    const readSession = () => {
+        const fetchData = async () => {
+            const response = await getData('status')
+            if (response && response.user)
+            {
+                setUser(response.user)
+                setLoggedIn(true)
+            }
+        }
+        fetchData()
+    }
+
+    useEffect(readSession, [])
 
     return (
         <UserContext.Provider value={{user, setUser}}>

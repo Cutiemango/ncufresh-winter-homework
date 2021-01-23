@@ -1,8 +1,8 @@
 import React, { useState, useContext } from 'react'
 import { Link } from 'react-router-dom'
-import axios from 'axios'
 
 import { LoginStatus, UserContext } from '../app'
+import { getData } from '../pages/validateCredentials'
 import Button from './Button'
 
 import './Navbar.css'
@@ -24,8 +24,7 @@ const Navbar = () =>
             isAdmin: false
         })
 
-        let url = 'http://localhost:3001/logout'
-        axios.get(url)
+        getData('logout')
     }
 
     return (
