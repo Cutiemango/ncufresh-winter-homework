@@ -1,7 +1,7 @@
 import React, { useContext, useState } from 'react'
 import { Redirect } from 'react-router-dom'
 
-import validate, { postData } from './validateCredentials'
+import validate, { postData } from './apiUtil'
 import { LoginStatus, UserContext } from '../app'
 import LoginForm from '../components/LoginForm'
 

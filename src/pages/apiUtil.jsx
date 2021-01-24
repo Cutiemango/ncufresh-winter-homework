@@ -17,10 +17,10 @@ export const postData = async (apiMethod, data) => {
     }
 }
 
-export const getData = async (apiMethod) => {
+export const getData = async (apiMethod, query) => {
     axios.defaults.withCredentials = true
     try {
-        const response = await axios.get(API_URL + `/${apiMethod}`)
+        const response = await axios.get(API_URL + `/${apiMethod}`, { params: (query ? query : {}) })
         const responseData = await response.data
         return responseData
     }

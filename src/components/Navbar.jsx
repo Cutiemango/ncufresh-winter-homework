@@ -2,7 +2,7 @@ import React, { useState, useContext } from 'react'
 import { Link } from 'react-router-dom'
 
 import { LoginStatus, UserContext } from '../app'
-import { getData } from '../pages/validateCredentials'
+import { getData } from '../pages/apiUtil'
 import Button from './Button'
 
 import './Navbar.css'
@@ -49,17 +49,19 @@ const Navbar = () =>
                         </Link>
                     </li>
 
-                    {!isLoggedIn && <li className='nav-item'>
-                        <Link to='/login' className='nav-links' onClick={closeMenu}>
-                            Log In
-                        </Link>
-                    </li>}
-
-                    {isLoggedIn && <li className='nav-item'>
-                        <Link to='/' className='nav-links' onClick={closeMenu}>
-                            Hi, {user.name}
-                        </Link>
-                    </li>}
+                    {isLoggedIn ? 
+                        <li className='nav-item'>
+                            <Link to='/' className='nav-links' onClick={closeMenu}>
+                                Hi, {user.name}
+                            </Link>
+                        </li>
+                        :
+                        <li className='nav-item'>
+                            <Link to='/login' className='nav-links' onClick={closeMenu}>
+                                Log In
+                            </Link>
+                        </li>
+                    }
 
                     <li className='nav-item'>
                         <Link to='/sign-up' className='nav-links-mobile' onClick={closeMenu}>
@@ -67,7 +69,15 @@ const Navbar = () =>
                         </Link>
                     </li>
                 </ul>
-                <Button isLoggedIn={isLoggedIn} handleClick={handleLogout}/>
+                {isLoggedIn ? 
+                    <Button id='logout' text='Log Out' link='logout' onClick={handleLogout}/>
+                    :
+                    <Button id='signup' text='Sign Up' link='sign-up'/>
+                }
+
+                {isLoggedIn &&
+                    <Button id='create_article_btn' text='Create New Article' link='create_article'/>
+                }
             </nav>
         </>
     )

@@ -1,6 +1,7 @@
 :root {
     --signup: #1888ff;
     --logout: #ce1931;
+    --create: #0da82f;
 }
 
 .btn {
@@ -22,6 +23,16 @@
     border-radius: 4px;
     border: 2px solid var(--signup);
 }
+
+#create_article_btn {
+    background-color: var(--create);
+}
+
+#create_article_btn:hover {
+    background-color: transparent;
+    border: 2px solid var(--create);
+}
+
 
 #logout {
     background-color: var(--logout);
