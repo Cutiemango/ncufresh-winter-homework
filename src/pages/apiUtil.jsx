@@ -5,6 +5,17 @@ const PASSWORD_REGEX = new RegExp('^[A-Za-z0-9@$!%*#?&]+$')
 
 const API_URL = 'http://localhost:3001'
 
+export const deleteData = async (apiMethod, query) => {
+    try {
+        const response = await axios.delete(API_URL + `/${apiMethod}`, { params: (query ? query : {}) })
+        const responseData = await response.data
+        return responseData
+    }
+    catch (error) {
+        return error.response.data
+    }
+}
+
 export const postData = async (apiMethod, data) => {
     axios.defaults.withCredentials = true
     try {

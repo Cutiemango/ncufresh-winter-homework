@@ -7,6 +7,7 @@ import LoginPage from './pages/login'
 import RegisterPage from './pages/register'
 import ArticlePage from './pages/articles'
 import CreateArticlePage from './pages/create_article'
+import ViewArticlePage from './pages/view_article'
 
 import Navbar from './components/Navbar'
 
@@ -50,8 +51,10 @@ const App = () => {
                     <Navbar />
                     <Switch>
                         <Route path='/' exact component={Home} />
+                        <Route path='/home' exact component={Home} />
                         <Route path='/articles' exact component={ArticlePage} />
                         <Route path='/create_article' exact component={CreateArticlePage} />
+                        <Route path='/view_article/:id' component={ViewArticlePage} />
                         <Route path='/login' exact component={LoginPage} />
                         <Route path='/sign-up' exact component={RegisterPage} />
                     </Switch>

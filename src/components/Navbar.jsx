@@ -70,9 +70,9 @@ const Navbar = () =>
                     </li>
                 </ul>
                 {isLoggedIn ? 
-                    <Button id='logout' text='Log Out' link='logout' onClick={handleLogout}/>
+                    <Button id='logout' text='Log Out' link='/home' onClick={handleLogout}/>
                     :
-                    <Button id='signup' text='Sign Up' link='sign-up'/>
+                    <Button id='signup' text='Sign Up' link='/sign-up'/>
                 }
 
                 {isLoggedIn &&
