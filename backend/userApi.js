@@ -4,137 +4,141 @@ const router = express.Router();
 const mongoose = require("mongoose");
 const User = require("./models/user");
 
-router.get("/status", (req, res, next) => {
+router.get("/status", async (req, res, next) => {
     const session = req.session;
     if (session.isLoggedIn) {
-        User.findOne({
-            account: session.account,
-        }).exec((err, result) => {
-            if (err) return next(err);
-            if (result !== null) {
+        try {
+            const user = await User.findById(session.account).exec();
+            if (user !== null) {
                 res.status(200);
                 res.json({
                     status: "OK",
-                    message: `Currently logged in as ${result.name}(${result.account})`,
+                    message: `Currently logged in as ${user.name}(${user.account})`,
                     user: {
-                        id: result.account,
-                        name: result.name,
-                        isAdmin: result.isAdmin,
-                    },
+                        id: user.account,
+                        name: user.name,
+                        isAdmin: user.isAdmin
+                    }
                 });
             } else {
                 res.status(400);
                 res.json({ status: "FAILED", message: "Account id not found" });
             }
-        });
+        } catch (error) {
+            res.status(500);
+            return next(err);
+        }
     } else {
         res.status(400);
         res.json({ status: "FAILED", message: "Login session not found" });
     }
 });
 
-router.post("/login", (req, res, next) => {
+router.post("/login", async (req, res, next) => {
     const session = req.session;
     if (session.isLoggedIn) {
         res.status(400);
         res.json({ status: "FAILED", message: "User has already logined" });
-    } else {
+        return;
+    }
+    try {
         const { account, password } = req.body;
         if (account && password) {
             console.log(`[Router] Received login request id=${account}`);
-            User.findOne({
+            const result = await User.findOne({
                 account: account,
-                password: password,
-            }).exec((err, result) => {
-                if (err) return next(err);
-                if (result !== null) {
-                    session.isLoggedIn = true;
-                    session.account = result.account;
-                    session.name = result.name;
-                    session.isAdmin = result.isAdmin;
+                password: password
+            }).exec();
 
-                    res.status(200);
-                    res.json({
-                        status: "OK",
-                        message: "Logined",
-                        user: {
-                            id: result.account,
-                            name: result.name,
-                            isAdmin: result.isAdmin,
-                        },
-                    });
-                } else {
-                    res.status(401);
-                    res.json({
-                        status: "FAILED",
-                        message: "User id or password is invalid",
-                    });
-                }
-            });
+            if (result !== null) {
+                session.isLoggedIn = true;
+                session.account = result.account;
+                session.name = result.name;
+                session.isAdmin = result.isAdmin;
+
+                res.status(200);
+                res.json({
+                    status: "OK",
+                    message: "Logined",
+                    user: {
+                        id: result.account,
+                        name: result.name,
+                        isAdmin: result.isAdmin
+                    }
+                });
+            } else {
+                res.status(401);
+                res.json({
+                    status: "FAILED",
+                    message: "User id or password is invalid"
+                });
+            }
         } else {
             res.status(400);
             res.json({
                 status: "FAILED",
-                message: "User id or password is empty",
+                message: "User id or password is empty"
             });
         }
+    } catch (error) {
+        res.status(500);
+        return next(error);
     }
 });
 
-router.post("/register", (req, res, next) => {
+router.post("/register", async (req, res, next) => {
     const session = req.session;
     if (session.isLoggedIn) {
         res.status(400);
         res.json({ status: "FAILED", message: "User has already logined" });
-    } else {
+        return;
+    }
+    try {
         const { account, name, password } = req.body;
         if (account && name && password) {
-            console.log(
-                `[Router] Received user registration with id=${account} name=${name}`
-            );
-            User.findOne({
-                account: account,
-            }).exec((err, result) => {
-                if (err) return next(err);
-                if (result !== null) {
-                    res.status(400);
-                    res.json({
-                        status: "FAILED",
-                        message: "User id has already been taken",
-                    });
-                } else {
-                    let newUser = new User({
-                        account: account,
-                        name: name,
-                        password: password,
-                        isAdmin: false,
-                    }).save((err) => {
-                        if (err) return next(err);
-                        session.isLoggedIn = true;
-                        session.account = account;
-                        session.name = name;
-                        session.isAdmin = false;
+            console.log(`[Router] Received user registration with id=${account} name=${name}`);
 
-                        res.status(200);
-                        res.json({
-                            status: "OK",
-                            message: "Successfully registered and logined",
-                            user: {
-                                account: account,
-                                name: name,
-                                isAdmin: false,
-                            },
-                        });
-                    });
+            const duplicateUser = await User.findById(account).exec();
+            if (duplicateUser !== null) {
+                res.status(400);
+                res.json({
+                    status: "FAILED",
+                    message: "User id has already been taken"
+                });
+                return;
+            }
+            const newUser = await new User({
+                account: account,
+                name: name,
+                password: password,
+                isAdmin: false
+            }).save();
+
+            session.isLoggedIn = true;
+            session.account = account;
+            session.name = name;
+            session.isAdmin = false;
+
+            res.status(200);
+            res.json({
+                status: "OK",
+                message: "Successfully registered and logined",
+                user: {
+                    account: account,
+                    name: name,
+                    isAdmin: false
                 }
             });
         } else {
             res.status(400);
             res.json({
                 status: "FAILED",
-                message: "Account id, nickname or password is empty",
+                message: "Account id, nickname or password is empty"
             });
         }
+    } catch (error) {
+        res.status(500);
+        return next(error);
     }
 });
 
@@ -152,8 +156,7 @@ router.get("/logout", (req, res, next) => {
 });
 
 router.stack.forEach((r) => {
-    if (r.route && r.route.path)
-        console.log(JSON.stringify(r.route.methods) + "\t" + r.route.path);
+    if (r.route && r.route.path) console.log(JSON.stringify(r.route.methods) + "\t" + r.route.path);
 });
 
 module.exports = router;

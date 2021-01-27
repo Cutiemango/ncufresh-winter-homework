@@ -19,21 +19,21 @@ router.post("/create", async (req, res, next) => {
             const articleResult = await Article.findById(articleId).exec();
             if (articleResult !== null) {
                 const newComment = await new Comment({
-                    articleId: article._id,
+                    articleId: articleId,
                     authorId: session.account,
                     authorName: session.name,
                     content: content,
                     postTimeStamp: new Date(timeStamp)
                 }).save();
-                const updateArticle = await Article.updateById(articleId, {
+                const updateArticle = await Article.findByIdAndUpdate(articleId, {
                     $push: {
-                        comments: comment._id
+                        comments: newComment._id
                     }
                 }).exec();
                 res.status(200);
                 res.json({
                     status: "OK",
-                    message: `Successfully created comment id ${comment._id}`
+                    message: `Successfully created comment id ${newComment._id}`
                 });
             } else {
                 res.status(400);
