@@ -17,7 +17,6 @@ export const deleteData = async (apiMethod, query) => {
 }
 
 export const postData = async (apiMethod, data) => {
-    axios.defaults.withCredentials = true
     try {
         const response = await axios.post(API_URL + `/${apiMethod}`, data)
         const responseData = await response.data
@@ -29,7 +28,6 @@ export const postData = async (apiMethod, data) => {
 }
 
 export const getData = async (apiMethod, query) => {
-    axios.defaults.withCredentials = true
     try {
         const response = await axios.get(API_URL + `/${apiMethod}`, { params: (query ? query : {}) })
         const responseData = await response.data

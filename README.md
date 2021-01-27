@@ -7,4 +7,3 @@
 ### Backend
 - Server hosting(API Endpoint): Express.js
 - Database: MongoDB
-<img src="https://i.imgur.com/c16F1SD.png">

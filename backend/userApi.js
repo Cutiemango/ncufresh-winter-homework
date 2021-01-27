@@ -6,9 +6,9 @@ const User = require("./models/user");
 
 router.get("/status", async (req, res, next) => {
     const session = req.session;
-    if (session.isLoggedIn) {
+    if (session.isLoggedIn && session.account) {
         try {
-            const user = await User.findById(session.account).exec();
+            const user = await User.findOne({account: session.account}).exec();
             if (user !== null) {
                 res.status(200);
                 res.json({
@@ -26,7 +26,7 @@ router.get("/status", async (req, res, next) => {
             }
         } catch (error) {
             res.status(500);
-            return next(err);
+            return next(error);
         }
     } else {
         res.status(400);

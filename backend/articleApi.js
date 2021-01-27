@@ -27,7 +27,7 @@ router.post("/create", async (req, res, next) => {
             res.status(200);
             res.json({
                 status: "OK",
-                message: `Successfully created article id ${article._id}`,
+                message: `Successfully created article id ${newArticle._id}`,
                 article: {
                     id: newArticle._id,
                     authorId: newArticle.authorId,
@@ -162,6 +162,21 @@ router.get("/query_batch", async (req, res, next) => {
         res.json({ status: "FAILED", message: "Page or ipp cannot be empty" });
     }
 });
+
+router.get("/query_amount", async (req, res, next) => {
+    try {
+        const amount = await Article.countDocuments()
+        res.status(200)
+        res.json({
+            status: "OK",
+            message: `${amount} articles queried`,
+            amount: amount
+        })
+    } catch (error) {
+        res.status(500)
+        return next(error)
+    }    
+})
 
 router.delete("/delete", async (req, res, next) => {
     const articleId = req.query.articleId;

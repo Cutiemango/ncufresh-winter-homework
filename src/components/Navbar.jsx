@@ -76,7 +76,7 @@ const Navbar = () =>
                 }
 
                 {isLoggedIn &&
-                    <Button id='create_article_btn' text='Create New Article' link='create_article'/>
+                    <Button id='create_article_btn' text='Create New Article' link='/create_article'/>
                 }
             </nav>
         </>
