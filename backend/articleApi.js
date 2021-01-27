@@ -130,7 +130,7 @@ router.get("/query_batch", async (req, res, next) => {
         page = Number(page);
         ipp = Number(ipp);
         try {
-            const result = await Article.find({})
+            const result = await Article.find()
                 .sort({ postTimeStamp: "desc" })
                 .skip((page - 1) * ipp)
                 .limit(ipp)
@@ -165,18 +165,61 @@ router.get("/query_batch", async (req, res, next) => {
 
 router.get("/query_amount", async (req, res, next) => {
     try {
-        const amount = await Article.countDocuments()
-        res.status(200)
+        const amount = await Article.countDocuments();
+        res.status(200);
         res.json({
             status: "OK",
             message: `${amount} articles queried`,
             amount: amount
-        })
+        });
     } catch (error) {
-        res.status(500)
-        return next(error)
-    }    
-})
+        res.status(500);
+        return next(error);
+    }
+});
+
+router.get("/query_latest", async (req, res, next) => {
+    try {
+        const result = await Article.findOne().sort({ postTimeStamp: "desc" }).exec();
+        if (result !== null) {
+            let commentArray = [];
+            for (commentId of result.comments) {
+                const comment = await Comment.findById(commentId).exec();
+
+                commentArray.push({
+                    id: comment._id,
+                    articleId: articleId,
+                    authorId: comment.authorId,
+                    authorName: comment.authorName,
+                    content: comment.content,
+                    postTimeStamp: comment.postTimeStamp
+                });
+            }
+            res.status(200);
+            res.json({
+                status: "OK",
+                message: `Fetched latest article with id ${result._id}`,
+                article: {
+                    id: result._id,
+                    authorId: result.authorId,
+                    authorName: result.authorName,
+                    content: result.content,
+                    comments: commentArray,
+                    postTimeStamp: result.postTimeStamp
+                }
+            });
+        } else {
+            res.status(400);
+            res.json({
+                status: "FAILED",
+                message: "Cannot find the latest article"
+            });
+        }
+    } catch (error) {
+        res.status(500);
+        return next(error);
+    }
+});
 
 router.delete("/delete", async (req, res, next) => {
     const articleId = req.query.articleId;
