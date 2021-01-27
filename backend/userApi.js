@@ -98,7 +98,7 @@ router.post("/register", async (req, res, next) => {
         if (account && name && password) {
             console.log(`[Router] Received user registration with id=${account} name=${name}`);
 
-            const duplicateUser = await User.findById(account).exec();
+            const duplicateUser = await User.findOne({account: account}).exec();
             if (duplicateUser !== null) {
                 res.status(400);
                 res.json({

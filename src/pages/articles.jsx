@@ -2,8 +2,8 @@ import React, { useEffect, useState, useContext, useCallback, Fragment } from "r
 import { Link } from "react-router-dom";
 
 import { UserContext, IppOptionContext } from "../app";
-import { deleteData } from "./apiUtil";
-import { getData } from "./apiUtil";
+import { getData, deleteData } from "./apiUtil";
+
 import "./pages.css";
 
 const ITEM_OPTIONS = [5, 10, 30];
@@ -105,10 +105,10 @@ const ArticlePage = () => {
                 <tbody>{renderArticles}</tbody>
             </table>
             <button onClick={handleLastPageClick} disabled={page <= 1}>
-                Last Page
+                <i className="fas fa-chevron-left"></i>
             </button>
             <button onClick={handleNextPageClick} disabled={!showNextPage}>
-                Next Page
+                <i className="fas fa-chevron-right"></i>
             </button>
 
             <h4>Show articles per page:</h4>

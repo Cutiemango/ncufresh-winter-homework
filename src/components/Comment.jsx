@@ -43,7 +43,7 @@ const Comment = ({ commentObj, fetchArticle }) => {
                     <i className="fas fa-edit"></i>
                 </button>
             )}
-            {user.id === authorId && (
+            {(user.id === authorId || user.isAdmin) && (
                 <button onClick={handleDeleteClick}>
                     <i className="fas fa-times-circle"></i>
                 </button>

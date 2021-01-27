@@ -56,18 +56,41 @@ router.post("/create", async (req, res, next) => {
 });
 
 router.post("/edit", async (req, res, next) => {
+    // need to verify the session
+    const session = req.session;
+    if (!session.isLoggedIn) {
+        res.status(400);
+        res.json({ status: "FAILED", message: "No user has logged in" });
+        return;
+    }
+
     const { commentId, content } = req.body;
     if (commentId && content) {
         try {
-            const result = await Comment.findByIdAndUpdate(commentId, {
-                content: content
-            }).exec();
+            const comment = await Comment.findById(commentId).exec();
+            if (comment !== null) {
+                if (comment.authorId === session.account || session.isAdmin) {
+                    await Comment.updateOne({ _id: commentId }, { content: content }).exec();
 
-            res.status(200);
-            res.json({
-                status: "OK",
-                message: `Successfully edited comment id ${commentId}`
-            });
+                    res.status(200);
+                    res.json({
+                        status: "OK",
+                        message: `Successfully edited comment id ${commentId}`
+                    });
+                } else {
+                    res.status(401);
+                    res.json({
+                        status: "FAILED",
+                        message: `You dont have permission to edit this comment`
+                    });
+                }
+            } else {
+                res.status(400);
+                res.json({
+                    status: "FAILED",
+                    message: `Comment id is invalid`
+                });
+            }
         } catch (error) {
             res.status(500);
             return next(error);
@@ -82,20 +105,45 @@ router.post("/edit", async (req, res, next) => {
 });
 
 router.delete("/delete", async (req, res, next) => {
+    // need to verify the session
+    const session = req.session;
+    if (!session.isLoggedIn) {
+        res.status(400);
+        res.json({ status: "FAILED", message: "No user has logged in" });
+        return;
+    }
+
     const { articleId, commentId } = req.query;
     if (articleId && commentId) {
         try {
-            const commentDel = await Comment.findByIdAndDelete(commentId).exec();
-            const articleDel = await Article.findByIdAndUpdate(articleId, {
-                $pull: {
-                    comments: commentId
+            const comment = await Comment.findById(commentId).exec();
+            if (comment !== null) {
+                if (comment.authorId === session.account || session.isAdmin) {
+                    await Comment.deleteOne({ _id: commentId }).exec();
+                    await Article.findByIdAndUpdate(articleId, {
+                        $pull: {
+                            comments: commentId
+                        }
+                    }).exec();
+                    res.status(200);
+                    res.json({
+                        status: "OK",
+                        message: `Successfully deleted comment id ${commentId}`
+                    });
+                } else {
+                    res.status(401);
+                    res.json({
+                        status: "FAILED",
+                        message: `You dont have permission to delete this comment`
+                    });
                 }
-            }).exec();
-            res.status(200);
-            res.json({
-                status: "OK",
-                message: `Successfully deleted comment id ${commentId}`
-            });
+            } else {
+                res.status(400);
+                res.json({
+                    status: "FAILED",
+                    message: `Comment id is invalid`
+                });
+            }
         } catch (err) {
             res.status(500);
             return next(err);
