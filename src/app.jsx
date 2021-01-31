@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
-import { getData } from "./pages/apiUtil";
+import { getData } from "./util/apiUtil";
 import Home from "./pages/home";
 import LoginPage from "./pages/login";
 import RegisterPage from "./pages/register";
@@ -38,7 +38,7 @@ const App = () => {
 
     return (
         <UserContext.Provider value={{ user, setUser }}>
-            <LoginStatus.Provider value={{ isLoggedIn, setLoggedIn }}>
+            <LoginStatus.Provider value={{ isLoggedIn, setLoggedIn, fetchSession }}>
                 <IppOptionContext.Provider value={{ itemsPerPage, setItemsPerPage }}>
                     <Router>
                         <Navbar />

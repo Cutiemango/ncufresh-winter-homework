@@ -1,7 +1,8 @@
 import React, { useContext, useState } from "react";
 import { Redirect } from "react-router-dom";
 
-import validate, { postData } from "./apiUtil";
+import { postData } from "../util/apiUtil";
+import validate from "../util/validate";
 import { LoginStatus, UserContext } from "../app";
 import RegisterForm from "../components/RegisterForm";
 

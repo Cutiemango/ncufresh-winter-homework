@@ -2,7 +2,7 @@ import React, { useEffect, useState, useContext, useCallback, Fragment } from "r
 import { Link } from "react-router-dom";
 
 import { UserContext, IppOptionContext } from "../app";
-import { getData, deleteData } from "./apiUtil";
+import { getData, deleteData } from "../util/apiUtil";
 
 import "./pages.css";
 

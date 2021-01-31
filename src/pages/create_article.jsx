@@ -1,11 +1,14 @@
-import React, { useState, Fragment } from "react";
+import React, { useState, Fragment, useContext } from "react";
 import { Redirect } from "react-router-dom";
 
-import { postData } from "./apiUtil";
+import { LoginStatus } from "../app";
+import { postData } from "../util/apiUtil";
 
 import "./pages.css";
 
 const CreateArticlePage = () => {
+    const { isLoggedIn, fetchSession } = useContext(LoginStatus);
+
     const [content, setContent] = useState("");
     const [hasSubmitted, setSubmitted] = useState(false);
 
@@ -14,6 +17,12 @@ const CreateArticlePage = () => {
     };
 
     const handleClick = async () => {
+        fetchSession();
+        if (!isLoggedIn) {
+            alert("The login session has expired. Please re-login.");
+            return;
+        }
+
         const response = await postData("article/create", {
             content: content,
             timeStamp: Date.now()

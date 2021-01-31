@@ -105,9 +105,10 @@ router.get("/query", async (req, res, next) => {
             const result = await Article.findById(articleId).exec();
             if (result !== null) {
                 let commentArray = [];
-                for (commentId of result.comments) {
-                    const comment = await Comment.findById(commentId).exec();
-
+                const fetchTasks = result.comments.map((commentId) =>
+                    Comment.findById(commentId).exec()
+                );
+                for await (const comment of fetchTasks) {
                     commentArray.push({
                         id: comment._id,
                         articleId: articleId,
@@ -117,6 +118,7 @@ router.get("/query", async (req, res, next) => {
                         postTimeStamp: comment.postTimeStamp
                     });
                 }
+
                 res.status(200);
                 res.json({
                     status: "OK",

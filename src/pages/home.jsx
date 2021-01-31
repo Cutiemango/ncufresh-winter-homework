@@ -1,6 +1,6 @@
 import React, { useState, useEffect, Fragment } from "react";
 
-import { getData } from "./apiUtil";
+import { getData } from "../util/apiUtil";
 
 import "./pages.css";
 

@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useContext, useCallback, Fragment } from "react";
 
-import { getData, postData } from "./apiUtil";
+import { getData, postData } from "../util/apiUtil";
 
-import { UserContext } from "../app";
+import { LoginStatus, UserContext } from "../app";
 import Comment from "../components/Comment";
 
 import "./pages.css";
@@ -11,6 +11,7 @@ const ViewArticlePage = (props) => {
     const articleId = props.match.params.id;
 
     const { user } = useContext(UserContext);
+    const { isLoggedIn, fetchSession } = useContext(LoginStatus);
 
     const [article, setArticle] = useState({
         authorName: "",
@@ -28,7 +29,7 @@ const ViewArticlePage = (props) => {
         if (response && response.status === "OK") setArticle(response.article);
     }, [articleId]);
 
-    useEffect(() => fetchArticle(), [articleId, fetchArticle]);
+    useEffect(() => fetchArticle(), [fetchArticle]);
 
     const handleCommentChange = (event) => setNewComment(event.target.value);
     const handleArticleChange = (event) =>
@@ -42,6 +43,12 @@ const ViewArticlePage = (props) => {
     const handleEditClick = () => setEditing(true);
 
     const handleCreateClick = async () => {
+        fetchSession();
+
+        if (!isLoggedIn) {
+            alert("The login session has expired. Please re-login!");
+            return;
+        }
         const response = await postData("comment/create", {
             articleId: articleId,
             content: newComment,
@@ -89,13 +96,8 @@ const ViewArticlePage = (props) => {
         <p>{article.content}</p>
     );
 
-    return (
+    const renderNewCommentArea = isLoggedIn ? (
         <Fragment>
-            {renderArticleHeader}
-            {renderArticleContent}
-            <h4>留言</h4>
-            {renderComments}
-            <h4>新增回覆：</h4>
             <textarea
                 id="create_comment"
                 onChange={handleCommentChange}
@@ -104,6 +106,19 @@ const ViewArticlePage = (props) => {
             <button id="create_comment_btn" onClick={handleCreateClick}>
                 Submit
             </button>
+        </Fragment>
+    ) : (
+        <h4>請先登入！</h4>
+    );
+
+    return (
+        <Fragment>
+            {renderArticleHeader}
+            {renderArticleContent}
+            <h4>留言</h4>
+            {renderComments}
+            <h4>新增回覆：</h4>
+            {renderNewCommentArea}
         </Fragment>
     );
 };

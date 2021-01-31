@@ -1,7 +1,7 @@
 import React, { useState, useContext, Fragment } from "react";
 
 import { UserContext } from "../app";
-import { postData, deleteData } from "../pages/apiUtil";
+import { postData, deleteData } from "../util/apiUtil";
 
 import "../pages/pages.css";
 
