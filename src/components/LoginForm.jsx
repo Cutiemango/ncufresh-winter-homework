@@ -1,4 +1,7 @@
 import React, { useState } from "react";
+import BlockInput from "./BlockInput";
+
+import "./Form.scss";
 
 const LoginForm = ({ login, error }) => {
     const [credentials, setCredentials] = useState({
@@ -34,31 +37,28 @@ const LoginForm = ({ login, error }) => {
         });
 
     return (
-        <div className="login-form">
-            <h2>Login</h2>
-            <div className="login-input">
-                <label htmlFor="account">Account ID</label>
-                <input
-                    type="text"
-                    name="account"
-                    id="login-account"
-                    value={credentials.account}
-                    onChange={handleInput}
-                />
+        <div className="form">
+            <div className="control">
+                <h2>Login</h2>
             </div>
-            <div className="login-input">
-                <label htmlFor="password">Password</label>
-                <input
-                    type="password"
-                    name="password"
-                    id="login-password"
-                    value={credentials.password}
-                    onChange={handleInput}
-                />
-            </div>
-            <button onClick={handleSubmit}>LET ME INNNN</button>
 
-            {handleErrorMsg}
+            <BlockInput
+                labelName="account"
+                inputType="text"
+                value={credentials.account}
+                placeholder="Account"
+                onChange={handleInput}
+            />
+
+            <BlockInput
+                labelName="password"
+                inputType="password"
+                value={credentials.password}
+                placeholder="Password"
+                onChange={handleInput}
+            />
+            <button onClick={handleSubmit}>LET ME INNNN</button>
+            <div id="error_display">{handleErrorMsg}</div>
         </div>
     );
 };

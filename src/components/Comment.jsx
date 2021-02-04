@@ -3,7 +3,7 @@ import React, { useState, useContext, Fragment } from "react";
 import { UserContext } from "../app";
 import { postData, deleteData } from "../util/apiUtil";
 
-import "../pages/pages.css";
+import "../pages/pages.scss";
 
 const Comment = ({ commentObj, fetchArticle }) => {
     const { id, articleId, authorId, authorName, postTimeStamp } = commentObj;

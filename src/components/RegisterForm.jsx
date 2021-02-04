@@ -1,4 +1,7 @@
 import React, { useState } from "react";
+import BlockInput from "./BlockInput";
+
+import "./Form.scss";
 
 const RegisterForm = ({ register, error }) => {
     const [registerData, setRegisterData] = useState({
@@ -39,41 +42,37 @@ const RegisterForm = ({ register, error }) => {
         });
 
     return (
-        <div className="reg-form">
-            <h2>Sign Up</h2>
-            <div className="reg-input">
-                <label htmlFor="account">Account ID</label>
-                <input
-                    type="text"
-                    name="account"
-                    id="reg-account"
-                    value={registerData.account}
-                    onChange={handleInput}
-                />
+        <div className="form">
+            <div className="control">
+                <h2>Sign Up</h2>
             </div>
-            <div className="reg-input">
-                <label htmlFor="account">Nickname</label>
-                <input
-                    type="text"
-                    name="name"
-                    id="reg-name"
-                    value={registerData.name}
-                    onChange={handleInput}
-                />
-            </div>
-            <div className="reg-input">
-                <label htmlFor="password">Password</label>
-                <input
-                    type="password"
-                    name="password"
-                    id="reg-password"
-                    value={registerData.password}
-                    onChange={handleInput}
-                />
-            </div>
-            <button onClick={handleSubmit}>Join Gura Fan Club</button>
 
-            {renderErrorMsg}
+            <BlockInput
+                labelName="account"
+                inputType="text"
+                value={registerData.account}
+                placeholder="Account"
+                onChange={handleInput}
+            />
+
+            <BlockInput
+                labelName="name"
+                inputType="text"
+                value={registerData.name}
+                placeholder="Nickname"
+                onChange={handleInput}
+            />
+
+            <BlockInput
+                labelName="password"
+                inputType="password"
+                value={registerData.password}
+                placeholder="Password"
+                onChange={handleInput}
+            />
+
+            <button onClick={handleSubmit}>Join Gura Fan Club</button>
+            <div className="error_display">{renderErrorMsg}</div>
         </div>
     );
 };

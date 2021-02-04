@@ -4,7 +4,7 @@ import { Redirect } from "react-router-dom";
 import { LoginStatus } from "../app";
 import { postData } from "../util/apiUtil";
 
-import "./pages.css";
+import "./pages.scss";
 
 const CreateArticlePage = () => {
     const { isLoggedIn, fetchSession } = useContext(LoginStatus);

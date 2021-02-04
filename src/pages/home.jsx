@@ -2,7 +2,7 @@ import React, { useState, useEffect, Fragment } from "react";
 
 import { getData } from "../util/apiUtil";
 
-import "./pages.css";
+import "./pages.scss";
 
 const Home = () => {
     const [latestArticle, setLatestArticle] = useState({

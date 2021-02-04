@@ -5,7 +5,7 @@ import { getData, postData } from "../util/apiUtil";
 import { LoginStatus, UserContext } from "../app";
 import Comment from "../components/Comment";
 
-import "./pages.css";
+import "./pages.scss";
 
 const ViewArticlePage = (props) => {
     const articleId = props.match.params.id;

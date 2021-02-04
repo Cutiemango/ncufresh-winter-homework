@@ -6,7 +6,7 @@ import validate from "../util/validate";
 import { LoginStatus, UserContext } from "../app";
 import LoginForm from "../components/LoginForm";
 
-import "./pages.css";
+import "./pages.scss";
 
 const LoginPage = () => {
     const [errors, setErrors] = useState([]);

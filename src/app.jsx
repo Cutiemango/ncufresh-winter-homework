@@ -11,7 +11,7 @@ import ViewArticlePage from "./pages/view_article";
 
 import Navbar from "./components/Navbar";
 
-import "./app.css";
+import "./app.scss";
 
 export const LoginStatus = React.createContext();
 export const UserContext = React.createContext();

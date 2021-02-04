@@ -5,7 +5,7 @@ import { LoginStatus, UserContext } from "../app";
 import { getData } from "../util/apiUtil";
 import Button from "./Button";
 
-import "./Navbar.css";
+import "./Navbar.scss";
 
 const Navbar = () => {
     const [isMenuActive, setMenuActive] = useState(false);

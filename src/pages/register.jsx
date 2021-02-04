@@ -6,7 +6,7 @@ import validate from "../util/validate";
 import { LoginStatus, UserContext } from "../app";
 import RegisterForm from "../components/RegisterForm";
 
-import "./pages.css";
+import "./pages.scss";
 
 const RegisterPage = () => {
     const [errors, setErrors] = useState([]);

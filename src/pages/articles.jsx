@@ -1,10 +1,11 @@
-import React, { useEffect, useState, useContext, useCallback, Fragment } from "react";
+import React, { useEffect, useState, useContext, useCallback } from "react";
 import { Link } from "react-router-dom";
 
 import { UserContext, IppOptionContext } from "../app";
 import { getData, deleteData } from "../util/apiUtil";
 
-import "./pages.css";
+import "./pages.scss";
+import "./articles.scss";
 
 const ITEM_OPTIONS = [5, 10, 30];
 
@@ -50,7 +51,11 @@ const ArticlePage = () => {
 
     const renderDeleteButton = (article) => {
         return user.id === article.authorId || user.isAdmin ? (
-            <button onClick={() => handleDeleteClick(article.id)}>
+            <button
+                id="remove_btn"
+                className="articles_btn"
+                onClick={() => handleDeleteClick(article.id)}
+            >
                 <i className="fas fa-times-circle"></i>
             </button>
         ) : (
@@ -66,7 +71,7 @@ const ArticlePage = () => {
                 <td>{article.comments.length}</td>
                 <td>
                     <Link to={`/view_article/${article.id}`}>
-                        <button>
+                        <button className="articles_btn">
                             <i className="fas fa-eye"></i>
                         </button>
                     </Link>
@@ -80,6 +85,7 @@ const ArticlePage = () => {
     const renderIppButtons = ITEM_OPTIONS.map((option, id) => {
         return (
             <button
+                className="articles_btn"
                 key={id}
                 onClick={() => handleIppClick(option)}
                 disabled={itemsPerPage === option}
@@ -90,10 +96,10 @@ const ArticlePage = () => {
     });
 
     return (
-        <Fragment>
+        <div className="center">
             <table id="articles">
                 <thead>
-                    <tr>
+                    <tr className="center">
                         <th>Author</th>
                         <th>Content</th>
                         <th>Comments</th>
@@ -104,16 +110,22 @@ const ArticlePage = () => {
                 </thead>
                 <tbody>{renderArticles}</tbody>
             </table>
-            <button onClick={handleLastPageClick} disabled={page <= 1}>
-                <i className="fas fa-chevron-left"></i>
-            </button>
-            <button onClick={handleNextPageClick} disabled={!showNextPage}>
-                <i className="fas fa-chevron-right"></i>
-            </button>
+            <div className="articles_btnarea">
+                <button className="articles_btn" onClick={handleLastPageClick} disabled={page <= 1}>
+                    <i className="fas fa-chevron-left"></i>
+                </button>
+                <button
+                    className="articles_btn"
+                    onClick={handleNextPageClick}
+                    disabled={!showNextPage}
+                >
+                    <i className="fas fa-chevron-right"></i>
+                </button>
+            </div>
 
             <h4>Show articles per page:</h4>
             {renderIppButtons}
-        </Fragment>
+        </div>
     );
 };
 
