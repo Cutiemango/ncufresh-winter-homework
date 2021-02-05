@@ -4,7 +4,7 @@
     --create: #0da82f;
 }
 
-.btn {
+.nav_btn {
     margin: 0px 10px;
     padding: 8px 10px;
     border-radius: 4px;
@@ -16,7 +16,7 @@
     background-color: var(--signup);
 }
 
-.btn:hover {
+.nav_btn:hover {
     padding: 6px 10px;
     transition: all 0.3s ease-out;
     background-color: transparent;

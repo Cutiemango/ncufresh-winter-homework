@@ -71,7 +71,22 @@ const RegisterForm = ({ register, error }) => {
                 onChange={handleInput}
             />
 
-            <button onClick={handleSubmit}>Join Gura Fan Club</button>
+            <button className="btn block-cube block-cube-hover" onClick={handleSubmit}>
+                <div className="bg-top">
+                    <div className="bg-inner"></div>
+                </div>
+                <div className="bg-right">
+                    <div className="bg-inner"></div>
+                </div>
+                <div className="bg">
+                    <div className="bg-inner"></div>
+                </div>
+                <div className="text">
+                    <img src="https://i.imgur.com/MmGksbg.png"></img>
+                    Join Gura Fan Club
+                    </div>
+            </button>
+
             <div className="error_display">{renderErrorMsg}</div>
         </div>
     );

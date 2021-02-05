@@ -5,7 +5,7 @@ import "./Button.scss";
 const Button = ({ id, text, link, onClick }) => {
     return (
         <Link to={link}>
-            <button className="btn" id={id} onClick={onClick}>
+            <button className="nav_btn" id={id} onClick={onClick}>
                 {text}
             </button>
         </Link>

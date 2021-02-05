@@ -57,7 +57,18 @@ const LoginForm = ({ login, error }) => {
                 placeholder="Password"
                 onChange={handleInput}
             />
-            <button onClick={handleSubmit}>LET ME INNNN</button>
+            <button className="btn block-cube block-cube-hover" onClick={handleSubmit} type='button'>
+                <div className="bg-top">
+                    <div className="bg-inner"></div>
+                </div>
+                <div className="bg-right">
+                    <div className="bg-inner"></div>
+                </div>
+                <div className="bg">
+                    <div className="bg-inner"></div>
+                </div>
+                <div className="text">LET ME INNNN</div>
+            </button>
             <div id="error_display">{handleErrorMsg}</div>
         </div>
     );

@@ -3,7 +3,7 @@ import React from "react";
 const BlockInput = ({ labelName, inputType, value, placeholder, onChange }) => {
     return (
         <div className="control block-cube block-input">
-            <label htmlFor={labelName}>Account ID</label>
+            <label htmlFor={labelName}>{labelName}</label>
             <input
                 type={inputType}
                 name={labelName}
