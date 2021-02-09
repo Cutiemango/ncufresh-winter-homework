@@ -1,0 +1,28 @@
+h2 {
+    margin: 5px 5px;
+}
+
+.create_article {
+    width: 500px;
+    height: 400px;
+    padding-left: 10px;
+
+    .btn {
+        width: 50%;
+    }
+
+    textarea {
+        width: 500px;
+        height: 100px;
+        border-radius: 6px 6px 6px 6px;
+        margin-bottom: 20px;
+        font-family: "PT Sans";
+        font-size: 16px;
+        resize: none;
+    }
+
+    textarea:focus {
+        background: none repeat scroll 0 0 #ffffff;
+        outline-width: 0;
+    }
+}

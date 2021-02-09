@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import BlockButton from "./BlockButton";
 import BlockInput from "./BlockInput";
 
 import "./Form.scss";
@@ -71,21 +72,10 @@ const RegisterForm = ({ register, error }) => {
                 onChange={handleInput}
             />
 
-            <button className="btn block-cube block-cube-hover" onClick={handleSubmit}>
-                <div className="bg-top">
-                    <div className="bg-inner"></div>
-                </div>
-                <div className="bg-right">
-                    <div className="bg-inner"></div>
-                </div>
-                <div className="bg">
-                    <div className="bg-inner"></div>
-                </div>
-                <div className="text">
-                    <img src="https://i.imgur.com/MmGksbg.png"></img>
-                    Join Gura Fan Club
-                    </div>
-            </button>
+            <BlockButton onClick={handleSubmit}>
+                <img src="https://i.imgur.com/MmGksbg.png" alt="gura"></img>
+                Join Gura Fan Club
+            </BlockButton>
 
             <div className="error_display">{renderErrorMsg}</div>
         </div>

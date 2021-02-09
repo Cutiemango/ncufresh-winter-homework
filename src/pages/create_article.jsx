@@ -1,9 +1,11 @@
-import React, { useState, Fragment, useContext } from "react";
+import React, { useState, useContext } from "react";
 import { Redirect } from "react-router-dom";
 
+import BlockButton from "../components/BlockButton";
 import { LoginStatus } from "../app";
 import { postData } from "../util/apiUtil";
 
+import "./create_article.scss";
 import "./pages.scss";
 
 const CreateArticlePage = () => {
@@ -33,17 +35,17 @@ const CreateArticlePage = () => {
     return hasSubmitted ? (
         <Redirect to="/articles"></Redirect>
     ) : (
-        <Fragment>
+        <div className="create_article">
+            <h2>Create New Article</h2>
             <textarea
                 id="create_article_textarea"
                 rows="10"
                 cols="50"
                 onChange={handleChange}
             ></textarea>
-            <button id="create_article_submit" onClick={handleClick}>
-                Create
-            </button>
-        </Fragment>
+            <br></br>
+            <BlockButton onClick={handleClick}>Create</BlockButton>
+        </div>
     );
 };
 

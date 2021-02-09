@@ -14,31 +14,31 @@
     color: #fff;
     cursor: pointer;
     background-color: var(--signup);
-}
 
-.nav_btn:hover {
-    padding: 6px 10px;
-    transition: all 0.3s ease-out;
-    background-color: transparent;
-    color: #fff;
-    border-radius: 4px;
-    border: 2px solid var(--signup);
+    :hover {
+        padding: 6px 10px;
+        transition: all 0.3s ease-out;
+        background-color: transparent;
+        color: #fff;
+        border-radius: 4px;
+        border: 2px solid var(--signup);
+    }
 }
 
 #create_article_btn {
     background-color: var(--create);
-}
 
-#create_article_btn:hover {
-    background-color: transparent;
-    border: 2px solid var(--create);
+    :hover {
+        background-color: transparent;
+        border: 2px solid var(--create);
+    }
 }
 
 #logout {
     background-color: var(--logout);
-}
 
-#logout:hover {
-    background-color: transparent;
-    border: 2px solid var(--logout);
+    :hover {
+        background-color: transparent;
+        border: 2px solid var(--logout);
+    }
 }

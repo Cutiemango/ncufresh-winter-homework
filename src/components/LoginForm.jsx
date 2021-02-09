@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import BlockInput from "./BlockInput";
+import BlockButton from "./BlockButton";
 
 import "./Form.scss";
 
@@ -57,18 +58,9 @@ const LoginForm = ({ login, error }) => {
                 placeholder="Password"
                 onChange={handleInput}
             />
-            <button className="btn block-cube block-cube-hover" onClick={handleSubmit} type='button'>
-                <div className="bg-top">
-                    <div className="bg-inner"></div>
-                </div>
-                <div className="bg-right">
-                    <div className="bg-inner"></div>
-                </div>
-                <div className="bg">
-                    <div className="bg-inner"></div>
-                </div>
-                <div className="text">LET ME INNNN</div>
-            </button>
+
+            <BlockButton onClick={handleSubmit}>LET ME INNNN</BlockButton>
+
             <div id="error_display">{handleErrorMsg}</div>
         </div>
     );

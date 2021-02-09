@@ -1,167 +1,170 @@
-$bg_body: #212121; 
+$bg_body: #212121;
 
 body {
-  background-color: $bg_body;
-  color: #fff;
-  font-family: monospace, serif;
-  letter-spacing: 0.05em;
+    background-color: $bg_body;
+    color: #fff;
+    font-family: monospace, serif;
+    letter-spacing: 0.05em;
 }
 
 h1 {
-  font-size: 23px;
+    font-size: 23px;
 }
 
 .form {
-  width: 300px;
-  padding: 64px 15px 24px;
-  margin: 0 auto;
-  .control {
-    margin: 0 0 24px;
-    input {
-      width: 95%;
-      margin: 2px 2px;
-      padding: 14px 16px;
-      border: 0;
-      background: transparent;
-      color: #fff;
-      font-family: monospace, serif;
-      letter-spacing: 0.05em;
-      font-size: 16px;
-      &:hover,
-      &:focus {
-        outline: none;
-        border: 0;
-      }
+    width: 300px;
+    padding: 64px 15px 24px;
+    margin: 0 auto;
+    .control {
+        margin: 0 0 24px;
+        input {
+            width: 95%;
+            margin: 2px 2px;
+            padding: 14px 16px;
+            border: 0;
+            background: transparent;
+            color: #fff;
+            font-family: monospace, serif;
+            letter-spacing: 0.05em;
+            font-size: 16px;
+            &:hover,
+            &:focus {
+                outline: none;
+                border: 0;
+            }
+        }
     }
-  }
-  .btn {
-    width: 90%;
-    display: block;
-    padding: 14px 16px;
-    background: transparent;
-    outline: none;
-    border: 0;
-    color: #fff;
-    letter-spacing: 0.1em;
-    font-weight: bold;
-    font-family: monospace;
-    font-size: 16px;
-    cursor: pointer;
-  }
-  
 }
 
 .block-cube {
-  position: relative;
-  .bg-top {
-    position: absolute;
-    height: 10px;
-    background: rgba(255, 255, 255, 0.5);
-    bottom: 100%;
-    left: 5px;
-    right: -5px;
-    transform: skew(-45deg, 0);
-    margin: 0;
-    .bg-inner{
-      bottom: 0;
-    }
-  }
-  .bg {
-    position: absolute;
-    left: 0;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    background: rgba(255, 255, 255, 0.5);
-  }
-  .bg-right {
-    position: absolute;
-    background: rgba(255, 255, 255, 0.5);
-    top: -5px;
-    z-index: 0;
-    bottom: 5px;
-    width: 10px;
-    left: 100%;
-    transform: skew(0, -45deg);
-    .bg-inner {
-      left: 0;
-    }
-  }
-  .bg {
-    .bg-inner {
-      transition: all 0.2s ease-in-out;
-    }
-  }
-  .bg-inner {
-    background: $bg_body;
-    position: absolute;
-    left: 2px;
-    top: 2px;
-    right: 2px;
-    bottom: 2px;
-  }
-  .text {
     position: relative;
-    z-index: 2;
-    img {
-        padding: 0px 6px;
-    }
-  }
-  
-  &.block-input {
-    input {
-      position: relative;
-      z-index: 2;
-      &:focus ~ .bg-right .bg-inner,
-      &:focus ~ .bg-top .bg-inner,
-      &:focus ~ .bg-inner .bg-inner {
-        top: 100%;
-        background: rgba(255, 255, 255, 0.5)
-      }    
+
+    &.btn {
+        width: 90%;
+        display: block;
+        padding: 14px 16px;
+        background: transparent;
+        outline: none;
+        border: 0;
+        color: #fff;
+        letter-spacing: 0.1em;
+        font-weight: bold;
+        font-family: monospace;
+        font-size: 16px;
+        cursor: pointer;
     }
 
-    /*
-        Fu*king autofills.
-    */
-    input:-webkit-autofill,
-    input:-webkit-autofill:hover, 
-    input:-webkit-autofill:focus, 
-    input:-webkit-autofill:active  {
-        -webkit-box-shadow: 0 0 0 30px $bg_body inset !important;
-    }
-
-    input:-webkit-autofill {
-        -webkit-text-fill-color: white !important;
-    }
-
-    .bg-top,
-    .bg-right,
-    .bg {
-      background: rgba(255, 255, 255, 0.5);
-      transition: background 0.2s ease-in-out;
-    }
-    .bg-right,
     .bg-top {
-      .bg-inner {
-        transition: all 0.2s ease-in-out;
-      }
+        position: absolute;
+        height: 10px;
+        background: rgba(255, 255, 255, 0.5);
+        bottom: 100%;
+        left: 5px;
+        right: -5px;
+        transform: skew(-45deg, 0);
+        margin: 0;
+        .bg-inner {
+            bottom: 0;
+        }
     }
-    &:focus,
-    &:hover {
+    .bg {
+        position: absolute;
+        left: 0;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(255, 255, 255, 0.5);
+    }
+    .bg-right {
+        position: absolute;
+        background: rgba(255, 255, 255, 0.5);
+        top: -5px;
+        z-index: 0;
+        bottom: 5px;
+        width: 10px;
+        left: 100%;
+        transform: skew(0, -45deg);
+        .bg-inner {
+            left: 0;
+        }
+    }
+    .bg {
+        .bg-inner {
+            transition: all 0.2s ease-in-out;
+        }
+    }
+    .bg-inner {
+        background: $bg_body;
+        position: absolute;
+        left: 2px;
+        top: 2px;
+        right: 2px;
+        bottom: 2px;
+    }
+    .text {
+        position: relative;
+        font-family: "PT Sans";
+        color: white;
+        letter-spacing: 0.05em;
+        font-size: 16px;
+        z-index: 2;
+        img {
+            padding: 0px 6px;
+        }
+    }
+
+    &.block-input {
+        input {
+            position: relative;
+            z-index: 2;
+            &:focus ~ .bg-right .bg-inner,
+            &:focus ~ .bg-top .bg-inner,
+            &:focus ~ .bg-inner .bg-inner {
+                top: 100%;
+                background: rgba(255, 255, 255, 0.5);
+            }
+        }
+
+        input:-webkit-autofill,
+        input:-webkit-autofill:hover,
+        input:-webkit-autofill:focus,
+        input:-webkit-autofill:active {
+            box-shadow: 0 0 0 30px $bg_body inset !important;
+            -webkit-box-shadow: 0 0 0 30px $bg_body inset !important;
+        }
+
+        input:-webkit-autofill {
+            -webkit-text-fill-color: white !important;
+        }
+
         .bg-top,
         .bg-right,
         .bg {
-          background: rgba(255, 255, 255, 0.8);
-          }
+            background: rgba(255, 255, 255, 0.5);
+            transition: background 0.2s ease-in-out;
+        }
+        .bg-right,
+        .bg-top {
+            .bg-inner {
+                transition: all 0.2s ease-in-out;
+            }
+        }
+        &:focus,
+        &:hover {
+            .bg-top,
+            .bg-right,
+            .bg {
+                background: rgba(255, 255, 255, 0.8);
+            }
+        }
     }
-  }
-  // State hover, focus
-  &.block-cube-hover:focus,
-  &.block-cube-hover:hover {
-    .bg {
-      .bg-inner {
-        top: 100%;
-      }
+    // State hover, focus
+    &.block-cube-hover:focus,
+    &.block-cube-hover:hover {
+        .bg {
+            .bg-inner {
+                top: 100%;
+            }
+        }
     }
-  }
 }
