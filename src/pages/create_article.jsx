@@ -6,7 +6,6 @@ import { LoginStatus } from "../app";
 import { postData } from "../util/apiUtil";
 
 import "./create_article.scss";
-import "./pages.scss";
 
 const CreateArticlePage = () => {
     const { isLoggedIn, fetchSession } = useContext(LoginStatus);

@@ -4,7 +4,6 @@ import { Link } from "react-router-dom";
 import { UserContext, IppOptionContext } from "../app";
 import { getData, deleteData } from "../util/apiUtil";
 
-import "./pages.scss";
 import "./articles.scss";
 
 const ITEM_OPTIONS = [5, 10, 30];

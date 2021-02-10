@@ -1,4 +1,4 @@
-import React, { useState, useContext, Fragment } from "react";
+import React, { useState, useContext } from "react";
 
 import { UserContext } from "../app";
 import { postData, deleteData } from "../util/apiUtil";
@@ -35,36 +35,43 @@ const Comment = ({ commentObj, fetchArticle }) => {
 
     const handleChange = (event) => setContent(event.target.value);
 
-    const renderCommentHeader = (
-        <h4>
-            {authorName} 發表於 {new Date(postTimeStamp).toLocaleString("en-US", { hour12: true })}
-            {user.id === authorId && (
-                <button onClick={handleEditClick}>
-                    <i className="fas fa-edit"></i>
-                </button>
-            )}
-            {(user.id === authorId || user.isAdmin) && (
-                <button onClick={handleDeleteClick}>
-                    <i className="fas fa-times-circle"></i>
-                </button>
-            )}
-        </h4>
-    );
-
-    const renderCommentContent = isEditing ? (
-        <Fragment>
-            <textarea onChange={handleChange} value={content}></textarea>
-            <button onClick={handleFinishClick}>Done</button>
-        </Fragment>
-    ) : (
-        <p>{content}</p>
-    );
-
     return (
-        <Fragment>
-            {renderCommentHeader}
-            {renderCommentContent}
-        </Fragment>
+        <div className="content_wrapper">
+            <div className="content_header">
+                <h2>{authorName}</h2>
+                <h3>{authorId}</h3>
+                <h3>
+                    發表於
+                    {" " + new Date(postTimeStamp).toLocaleString("en-US", { hour12: true })}
+                </h3>
+            </div>
+            <div className="content">
+                {isEditing ? (
+                    <textarea onChange={handleChange} value={content}></textarea>
+                ) : (
+                    <p>{content}</p>
+                )}
+            </div>
+            <div className="content_actions">
+                {user.id === authorId && !isEditing && (
+                    <button className="btn" onClick={handleEditClick}>
+                        <i className="fas fa-edit"></i>
+                    </button>
+                )}
+
+                {isEditing && (
+                    <button className="btn" onClick={handleFinishClick}>
+                        <i className="fas fa-check-square"></i>
+                    </button>
+                )}
+
+                {(user.id === authorId || user.isAdmin) && (
+                    <button id="remove_btn" className="btn" onClick={handleDeleteClick}>
+                        <i className="fas fa-times-circle"></i>
+                    </button>
+                )}
+            </div>
+        </div>
     );
 };
 

@@ -1,11 +1,12 @@
-import React, { useState, useEffect, useContext, useCallback, Fragment } from "react";
+import React, { useState, useEffect, useContext, useCallback } from "react";
 
 import { getData, postData } from "../util/apiUtil";
 
 import { LoginStatus, UserContext } from "../app";
 import Comment from "../components/Comment";
+import BlockButton from "../components/BlockButton";
 
-import "./pages.scss";
+import "./view_article.scss";
 
 const ViewArticlePage = (props) => {
     const articleId = props.match.params.id;
@@ -75,51 +76,58 @@ const ViewArticlePage = (props) => {
         return <Comment key={id} commentObj={comment} fetchArticle={fetchArticle} />;
     });
 
-    const renderArticleHeader = (
-        <h4>
-            {article.authorName} 發表於{" "}
-            {new Date(article.postTimeStamp).toLocaleString("en-US", { hour12: true })}
-            {user.id === article.authorId && (
-                <button onClick={handleEditClick}>
-                    <i className="fas fa-edit"></i>
-                </button>
-            )}
-        </h4>
-    );
-
-    const renderArticleContent = isEditing ? (
-        <Fragment>
-            <textarea onChange={handleArticleChange} value={article.content}></textarea>
-            <button onClick={handleFinishClick}>Done</button>
-        </Fragment>
-    ) : (
-        <p>{article.content}</p>
-    );
-
     const renderNewCommentArea = isLoggedIn ? (
-        <Fragment>
-            <textarea
-                id="create_comment"
-                onChange={handleCommentChange}
-                value={newComment}
-            ></textarea>
-            <button id="create_comment_btn" onClick={handleCreateClick}>
-                Submit
-            </button>
-        </Fragment>
+        <div className="create_comment">
+            <textarea onChange={handleCommentChange} value={newComment}></textarea>
+
+            <BlockButton onClick={handleCreateClick}>Create New Comment</BlockButton>
+        </div>
     ) : (
-        <h4>請先登入！</h4>
+        <h4>登入後才能留言哦！</h4>
+    );
+
+    const renderArticle = (
+        <div className="content_wrapper">
+            <div className="content_header">
+                <h2>{article.authorName}</h2>
+                <h3>{article.authorId}</h3>
+                <h3>
+                    發表於
+                    {" " +
+                        new Date(article.postTimeStamp).toLocaleString("en-US", { hour12: true })}
+                </h3>
+            </div>
+            <div className="content">
+                {isEditing ? (
+                    <textarea onChange={handleArticleChange} value={article.content}></textarea>
+                ) : (
+                    <p>{article.content}</p>
+                )}
+            </div>
+            <div className="content_actions">
+                {user.id === article.authorId && !isEditing && (
+                    <button className="btn" onClick={handleEditClick}>
+                        <i className="fas fa-edit"></i>
+                    </button>
+                )}
+
+                {isEditing && (
+                    <button className="btn" onClick={handleFinishClick}>
+                        <i className="fas fa-check-square"></i>
+                    </button>
+                )}
+            </div>
+        </div>
     );
 
     return (
-        <Fragment>
-            {renderArticleHeader}
-            {renderArticleContent}
-            <h4>留言</h4>
+        <div className="article_page">
+            {renderArticle}
+            <div className="bar"></div>
             {renderComments}
-            <h4>新增回覆：</h4>
+            <div className="bar"></div>
             {renderNewCommentArea}
-        </Fragment>
+        </div>
     );
 };
 

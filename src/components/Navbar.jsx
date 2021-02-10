@@ -9,7 +9,7 @@ import "./Navbar.scss";
 
 const Navbar = () => {
     const [isMenuActive, setMenuActive] = useState(false);
-    
+
     const { isLoggedIn, setLoggedIn } = useContext(LoginStatus);
     const { user, setUser } = useContext(UserContext);
 
@@ -58,7 +58,7 @@ const Navbar = () => {
                     ) : (
                         <li className="nav-item">
                             <Link to="/login" className="nav-links" onClick={closeMenu}>
-                                Log In
+                                Login
                             </Link>
                         </li>
                     )}

@@ -64,7 +64,7 @@ router.post("/edit", async (req, res, next) => {
         try {
             const article = await Article.findById(articleId).exec();
             if (article !== null) {
-                if (result.authorId === session.account || session.isAdmin) {
+                if (article.authorId === session.account || session.isAdmin) {
                     await Article.updateOne({ _id: articleId }, { content: content }).exec();
                     res.status(200);
                     res.json({
@@ -87,7 +87,7 @@ router.post("/edit", async (req, res, next) => {
             }
         } catch (error) {
             res.status(500);
-            return next(err);
+            return next(error);
         }
     } else {
         res.status(400);
@@ -136,9 +136,9 @@ router.get("/query", async (req, res, next) => {
                 res.status(400);
                 res.json({ status: "FAILED", message: "Article not found" });
             }
-        } catch (err) {
+        } catch (error) {
             res.status(500);
-            return next(err);
+            return next(error);
         }
     } else {
         res.status(400);
@@ -277,9 +277,9 @@ router.delete("/delete", async (req, res, next) => {
                     message: `Article id is invalid`
                 });
             }
-        } catch (err) {
+        } catch (error) {
             res.status(500);
-            return next(err);
+            return next(error);
         }
     } else {
         res.status(400);
