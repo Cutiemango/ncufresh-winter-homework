@@ -27,7 +27,7 @@ const LoginForm = ({ login, error }) => {
         }
     };
 
-    const handleErrorMsg =
+    const renderErrorMsg =
         error.length > 0 &&
         error.map((msg, idx) => {
             return (
@@ -61,7 +61,7 @@ const LoginForm = ({ login, error }) => {
 
             <BlockButton onClick={handleSubmit}>LET ME INNNN</BlockButton>
 
-            <div id="error_display">{handleErrorMsg}</div>
+            <div id="error_display">{renderErrorMsg}</div>
         </div>
     );
 };

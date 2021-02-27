@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 import { LoginStatus, UserContext } from "../app";
 import { getData } from "../util/apiUtil";
-import Button from "./Button";
+import Button from "./NavButton";
 
 import "./Navbar.scss";
 

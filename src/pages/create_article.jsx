@@ -28,7 +28,7 @@ const CreateArticlePage = () => {
             content: content,
             timeStamp: Date.now()
         });
-        if (response && response.status === "OK") setSubmitted(true);
+        if (response?.status === "OK") setSubmitted(true);
     };
 
     return hasSubmitted ? (

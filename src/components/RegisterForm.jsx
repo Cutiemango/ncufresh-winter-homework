@@ -77,7 +77,7 @@ const RegisterForm = ({ register, error }) => {
                 Join Gura Fan Club
             </BlockButton>
 
-            <div className="error_display">{renderErrorMsg}</div>
+            <div id="error_display">{renderErrorMsg}</div>
         </div>
     );
 };

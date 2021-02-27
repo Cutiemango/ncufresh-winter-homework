@@ -10,24 +10,24 @@ import "./pages.scss";
 
 const RegisterPage = () => {
     const [errors, setErrors] = useState([]);
+
     const { isLoggedIn, setLoggedIn } = useContext(LoginStatus);
     const { setUser } = useContext(UserContext);
 
     const handleRegister = async (registerData) => {
-        let validationError = validate(registerData);
+        const validationError = validate(registerData);
         if (validationError.length !== 0) {
             setErrors(validationError);
             return;
         }
 
-        let response = await postData("register", registerData);
-        if (response.status !== "OK") {
+        const response = await postData("register", registerData);
+        if (response?.status === "OK") {
+            setUser(response.user);
+            setLoggedIn(true);
+        } else {
             setErrors([response.message]);
-            return;
         }
-
-        setUser(response.user);
-        setLoggedIn(true);
     };
 
     return isLoggedIn ? (

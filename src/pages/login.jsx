@@ -14,20 +14,19 @@ const LoginPage = () => {
     const { setUser } = useContext(UserContext);
 
     const handleLogin = async (credentials) => {
-        let validationError = validate(credentials);
+        const validationError = validate(credentials);
         if (validationError.length !== 0) {
             setErrors(validationError);
             return;
         }
 
-        let response = await postData("login", credentials);
-        if (response.status !== "OK") {
+        const response = await postData("login", credentials);
+        if (response?.status === "OK") {
+            setUser(response.user);
+            setLoggedIn(true);
+        } else {
             setErrors([response.message]);
-            return;
         }
-
-        setUser(response.user);
-        setLoggedIn(true);
     };
 
     return isLoggedIn ? <Redirect to="/home" /> : <LoginForm login={handleLogin} error={errors} />;

@@ -23,11 +23,10 @@ const ArticlePage = () => {
             page: page,
             ipp: itemsPerPage
         });
-        if (articleResponse && articleResponse.status === "OK")
-            setArticles(articleResponse.articles);
+        if (articleResponse?.status === "OK") setArticles(articleResponse.articles);
 
         const amountResponse = await getData("article/query_amount");
-        if (amountResponse && amountResponse.status === "OK")
+        if (amountResponse?.status === "OK")
             // there are more articles to show
             setShowNextPage(amountResponse.amount > page * itemsPerPage);
     }, [page, itemsPerPage]);
@@ -38,11 +37,11 @@ const ArticlePage = () => {
         const response = await deleteData("article/delete", {
             articleId: articleId
         });
-        if (response && response.status === "OK") fetchArticles();
+        if (response?.status === "OK") fetchArticles();
     };
 
-    const handleLastPageClick = () => setPage(page - 1);
-    const handleNextPageClick = () => setPage(page + 1);
+    const handleLastPageClick = () => setPage((prev) => prev - 1);
+    const handleNextPageClick = () => setPage((prev) => prev + 1);
     const handleIppClick = (item) => {
         setItemsPerPage(item);
         setPage(1);

@@ -14,7 +14,7 @@ const Home = () => {
 
     const fetchLatest = async () => {
         const response = await getData("article/query_latest");
-        if (response && response.status === "OK") setLatestArticle(response.article);
+        if (response?.status === "OK") setLatestArticle(response.article);
     };
 
     useEffect(() => fetchLatest(), []);

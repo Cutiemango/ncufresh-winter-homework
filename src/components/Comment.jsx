@@ -17,7 +17,7 @@ const Comment = ({ commentObj, fetchArticle }) => {
             articleId: articleId,
             commentId: id
         });
-        if (response && response.status === "OK") {
+        if (response?.status === "OK") {
             setContent("");
             fetchArticle();
         }
@@ -30,7 +30,7 @@ const Comment = ({ commentObj, fetchArticle }) => {
             commentId: id,
             content: content
         });
-        if (response && response.status === "OK") setEditing(false);
+        if (response?.status === "OK") setEditing(false);
     };
 
     const handleChange = (event) => setContent(event.target.value);

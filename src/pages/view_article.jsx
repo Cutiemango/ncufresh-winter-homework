@@ -27,7 +27,7 @@ const ViewArticlePage = (props) => {
         const response = await getData("article/query", {
             articleId: articleId
         });
-        if (response && response.status === "OK") setArticle(response.article);
+        if (response?.status === "OK") setArticle(response.article);
     }, [articleId]);
 
     useEffect(() => fetchArticle(), [fetchArticle]);
@@ -55,7 +55,7 @@ const ViewArticlePage = (props) => {
             content: newComment,
             timeStamp: Date.now()
         });
-        if (response && response.status === "OK") {
+        if (response?.status === "OK") {
             setNewComment("");
             fetchArticle();
         }
@@ -66,7 +66,7 @@ const ViewArticlePage = (props) => {
             articleId: articleId,
             content: article.content
         });
-        if (response && response.status === "OK") {
+        if (response?.status === "OK") {
             setEditing(false);
             fetchArticle();
         }
@@ -125,7 +125,7 @@ const ViewArticlePage = (props) => {
             {renderArticle}
             <div className="bar"></div>
             {renderComments}
-            <div className="bar"></div>
+            {article.comments.length > 0 && <div className="bar"></div>}
             {renderNewCommentArea}
         </div>
     );
